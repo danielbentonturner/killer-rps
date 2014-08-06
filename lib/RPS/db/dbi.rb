@@ -48,9 +48,7 @@ module RPS
       )])
     end
 
-
-
-    def record_match(p1_move, p2_move, p1_result, p2_result)
+    def record_match(record)
       @db.exec_params(%q[
       INSERT INTO matches (
         player1_move, 
@@ -58,7 +56,7 @@ module RPS
         player1_result,
         player2_result)
         VALUES ($1, $2, $3, $4);
-        ], [p1_move, p2_move, p1_result, p2_result])
+        ], [record.player1_move, record.player2_move, record.player1_result, record.player2_result])
     end
 
     def get_user_by_username(username)

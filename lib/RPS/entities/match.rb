@@ -14,7 +14,7 @@ module RPS
     end
 
     def record_match
-      RPS.dbi.record_match(@player1_move, @player2_move, @player1_result, @player2_result)
+      RPS.dbi.record_match(self)
     end
 
   end
