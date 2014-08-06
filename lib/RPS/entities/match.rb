@@ -7,19 +7,14 @@ module RPS
     def initialize(hash)
       @player1_move = hash[:player1_move]
       @player2_move = hash[:player2_move]
-      @player1_result = nil
-      @player2_result = nil
-    end
-
-    def get_result
       result = KillerRPS.play({player1: @player1_move, player2: @player2_move})
       @player1_result = result[:player1]
-      player2_result = result[:player2]
+      @player2_result = result[:player2]
       record_match
     end
 
     def record_match
-      Database::DBI.record_match(@player1_move, @player2_move, @player1_result, @player2_result)
+      RPS.dbi.record_match(@player1_move, @player2_move, @player1_result, @player2_result)
     end
 
   end

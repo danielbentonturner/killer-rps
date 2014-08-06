@@ -13,7 +13,8 @@ module RPS
     # these methods create the tables in your db if they
     # dont already exist
     def build_tables
-      @db.exec(%q[
+
+      @db.exec_params(%q[
       CREATE TABLE IF NOT EXISTS users(
         id serial NOT NULL PRIMARY KEY,
         name varchar(30),
@@ -24,7 +25,8 @@ module RPS
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
-      @db.exec(%q[
+
+      @db.exec_params(%q[
       CREATE TABLE IF NOT EXISTS games(
         id serial NOT NULL PRIMARY KEY,
         player1_id integer REFERENCES users(id),
@@ -34,7 +36,8 @@ module RPS
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
-      @db.exec(%q[
+
+      @db.exec_params(%q[
       CREATE TABLE IF NOT EXISTS matches(
         id serial NOT NULL PRIMARY KEY,
         player1_move varchar(9),
@@ -45,15 +48,17 @@ module RPS
       )])
     end
 
-    def record_match
+
+
+    def record_match(p1_move, p2_move, p1_result, p2_result)
       @db.exec_params(%q[
-        INSERT INTO matches (
+      INSERT INTO matches (
         player1_move, 
         player2_move,
         player1_result,
         player2_result)
         VALUES ($1, $2, $3, $4);
-        ], [user.username, user.password_digest])
+        ], [p1_move, p2_move, p1_result, p2_result])
     end
 
     def get_user_by_username(username)
@@ -61,7 +66,6 @@ module RPS
           SELECT * FROM users WHERE username = $1;
         ],[username])
     end
-
   end
 
   def self.dbi
