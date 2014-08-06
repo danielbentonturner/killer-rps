@@ -38,7 +38,7 @@ module Database
             CREATE TABLE IF NOT EXISTS matches(
                 id serial NOT NULL PRIMARY KEY,
                 player1_id integer REFERENCES users(id),
-                player2_id integer REFERENCES users(id),
+                player2_id integer REFERENCES users(id),s
                 player1_move varchar(9),
                 player2_move varchar(9),
                 player1_result varchar(5),
