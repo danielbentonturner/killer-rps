@@ -18,7 +18,7 @@ module RPS
     end
 
     def valid_password?(password)
-      Digest::SHA1.hexidigest(password)=@password_digest
+      Digest::SHA1.hexidigest(password) == @password_digest
     end
   end
 end
