@@ -64,6 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dm-core
   killer_rps!
   pg
   pry-byebug

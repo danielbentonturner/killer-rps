@@ -17,7 +17,7 @@ module RPS
             CREATE TABLE IF NOT EXISTS users(
                 id serial NOT NULL PRIMARY KEY,
                 name varchar(30),
-                password_digest integer,
+                password_digest text,
                 email text,
                 last_login timestamp,
                 game_history integer[],
