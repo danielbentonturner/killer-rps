@@ -1,6 +1,6 @@
 require 'pg'
 
-module Database
+module RPS
     class DBI
      
         # this initialize method is only ever run once. make sure you
@@ -17,7 +17,7 @@ module Database
             CREATE TABLE IF NOT EXISTS users(
                 id serial NOT NULL PRIMARY KEY,
                 name varchar(30),
-                password_digest integer,
+                password_digest text,
                 email text,
                 last_login timestamp,
                 game_history integer[],
@@ -37,8 +37,6 @@ module Database
             @db.exec(%q[
             CREATE TABLE IF NOT EXISTS matches(
                 id serial NOT NULL PRIMARY KEY,
-                player1_id integer REFERENCES users(id),
-                player2_id integer REFERENCES users(id),s
                 player1_move varchar(9),
                 player2_move varchar(9),
                 player1_result varchar(5),
