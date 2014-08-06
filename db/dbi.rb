@@ -1,6 +1,6 @@
 require 'pg'
 
-module Database
+module RPS
     class DBI
      
         # this initialize method is only ever run once. make sure you
@@ -37,8 +37,6 @@ module Database
             @db.exec(%q[
             CREATE TABLE IF NOT EXISTS matches(
                 id serial NOT NULL PRIMARY KEY,
-                player1_id integer REFERENCES users(id),
-                player2_id integer REFERENCES users(id),s
                 player1_move varchar(9),
                 player2_move varchar(9),
                 player1_result varchar(5),
@@ -46,6 +44,16 @@ module Database
                 created_at timestamp NOT NULL DEFAULT current_timestamp
             )])
         end
+
+        def record_match
+        @db.exec_params(%q[
+        INSERT INTO matches (
+            player1_move, 
+            player2_move,
+            player1_result,
+            player2_result)
+        VALUES ($1, $2, $3, $4);
+      ], [user.username, user.password_digest])
 
 
     end
