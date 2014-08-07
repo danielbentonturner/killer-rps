@@ -5,7 +5,7 @@ module RPS
     def self.run(data)
       temp_game = RPS::Game.new(data)
       game = RPS.dbi.record_game(temp_game)
-      params = {game:game}
+      #params = {game:game}
     end
 
     def self.play_game(data)

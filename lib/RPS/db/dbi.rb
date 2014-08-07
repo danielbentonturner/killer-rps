@@ -58,7 +58,7 @@ module RPS
         player2_move,
         player1_result,
         player2_result)
-        VALUES ($1, $2, $3, $4),
+        VALUES ($1, $2, $3, $4)
         RETURNING id;
         ], [match.player1_move, match.player2_move, match.player1_result, match.player2_result])
 
@@ -70,10 +70,10 @@ module RPS
       INSERT INTO games(
         player1_id, 
         player2_id,
-        game_winner_id
-        VALUES ($1, $2, $3),
+        game_winner_id)
+        VALUES ($1, $2, $3)
         RETURNING id;
-        ], [game.player1_id, game.player2_id, game_winner_id])
+        ], [game.player1_id, game.player2_id, game.game_winner_id])
 
         game.instance_variable_set(:@game_id, result.first['id'].to_i)
         game
@@ -92,8 +92,8 @@ module RPS
         password_digest,
         email,
         last_login)
-        VALUES ($1, $2, $3, $4, $5);
-        ], [user.id, user.username, user.password_digest, user.email, user.last_login])
+        VALUES ($1, $2, $3, $4);
+        ],[user.username, user.password_digest, user.email, user.last_login])
 
     end
 
