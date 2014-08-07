@@ -71,6 +71,9 @@ get '/startgame/:player1_id/:player2_id' do
 end
 
 get '/game/:game_id' do
-  
+  erb :game
+end
+
+post '/game/:game_id/play/:player_id'
   @play = RSP::PlayGame.run(params)
 end
