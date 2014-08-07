@@ -13,12 +13,17 @@ module RPS
 
     def self.run(game)
       if game.game_winner_id.nil?
-        match = RPS::Match.new(game_id, player1_move, player2_move)
-        RPS::DBI.record_match(match)
-        data[:game].determine_winner(match.result)
-        return true
-      end
-        false
+        if ???game.turn == player1???
+          match = RPS::Match.new(game_id, player1_move)
+          ???game.turn = player2???
+          RPS::DBI.record_match(match)
+        else
+          ???PULL MATCH RECORD FROM DATABASE AND STORE IN match???
+          match.play(player2_move)
+          RPS::DBI.record_match(match)
+          game.check_winner?
+        end
+      else
     end
   end
 
