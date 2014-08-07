@@ -59,8 +59,8 @@ module RPS
         player2_move,
         player1_result,
         player2_result)
-        VALUES ($1, $2, $3, $4);
-        RETURNING id,
+        VALUES ($1, $2, $3, $4),
+        RETURNING id;
         ], [match.player1_move, match.player2_move, match.player1_result, match.player2_result])
 
         id = result.first['id'].to_i
@@ -72,14 +72,15 @@ module RPS
     end
 
     def record_user(user)
-      @db.exec_params(%q[
+      result = @db.exec_params(%q[
       INSERT INTO users (
         username,
         password_digest,
         email,
         last_login)
-        VALUES ($1, $2, $3, $4);
-        ], [user.username, user.password_digest, user.email, user.last_login])
+        VALUES ($1, $2, $3, $4, $5);
+        ], [user.id, user.username, user.password_digest, user.email, user.last_login])
+
     end
 
     def username_exists?(username)
