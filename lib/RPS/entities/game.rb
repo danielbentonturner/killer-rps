@@ -19,9 +19,3 @@ module RPS
   end
 
 end
-
-# Game will have two player objects passed to it.
-# Game will call match and keep track of wins and losses for each game.
-# Game will declare a game winner.
-# Game will call a method to write the game history to the database.
-# Game will return the winner of the game.
