@@ -5,10 +5,10 @@ module RPS
         return {success?: false, error:"Blank fields"}
       end
 
-      user = RPS.dbi.get_user_by_username(params['username'])
-        return {success?: false, error: "No such user"} if user.nil?
+      user = RPS.dbi.get_user_by_username(data['username'])
+      return {success?: false, error: "No such user"} if user.nil?
 
-      if !user.valid_password?(params['password'])
+      if !user.valid_password?(data['password'])
         return {succes?: false, error: "Password Invalid."}
       end
 
