@@ -48,7 +48,7 @@ module RPS
       )])
     end
 
-    def record_match(record)
+    def record_match(match)
       result = @db.exec_params(%q[
       INSERT INTO matches (
         player1_move, 
@@ -57,7 +57,7 @@ module RPS
         player2_result)
         VALUES ($1, $2, $3, $4);
         RETURNING id,
-        ], [record.player1_move, record.player2_move, record.player1_result, record.player2_result])
+        ], [match.player1_move, match.player2_move, match.player1_result, match.player2_result])
 
         result.first['id'].to_i
     end
