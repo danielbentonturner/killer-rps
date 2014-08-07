@@ -1,9 +1,6 @@
 module RPS
   class SignUp
     def self.run(params)
-      puts "--------------------------"
-      puts params
-      puts "--------------------------"
 
       if params['username'].empty? || params['password'].empty? || params['password_conf'].empty?
         return {:success? => false, :error => "Blank fields"}

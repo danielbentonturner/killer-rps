@@ -3,8 +3,7 @@ module RPS
   class HandleGame
 
     def self.start_game(data)
-      temp_game = Game.new(data)
-      # temp_game.player2 = data['player2']
+      temp_game = RPS::  Game.new(data)
       game = RPS.dbi.record_game(temp_game)
       params = {game:game}
     end
