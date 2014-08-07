@@ -11,7 +11,7 @@ module RPS
 
       user = RPS::User.new(params['username'])
       user.update_password(params['password'])
-      RPS.dbi.persist_user(user)
+      RPS.dbi.record_user(user)
       
       {
         :success? => true,

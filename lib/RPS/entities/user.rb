@@ -6,12 +6,12 @@ module RPS
     #change :password_digest to more secure method
 
     def initialize(arg)
-      @username = arg[:username]
-      @password_digest = arg[:password_digest]||nil
-      @email = arg[:email]
+      @username = arg['username']
+      @password_digest = arg['password_digest']||nil
+      @email = arg['email']
       @last_login = Time.now();
-      @game_histroy = arg[:game_histroy]||[]
-      @created_at = arg[:created_at]||nil
+      @game_histroy = arg['game_histroy']||[]
+      @created_at = arg['created_at']||nil
     end
 
     def update_password(password)
