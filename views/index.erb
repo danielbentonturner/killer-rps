@@ -2,10 +2,10 @@
   <h1>KILLER RPS MOFO!</h1>
   <% if @user %>
     You are signed in as <%= @user.username %><br /><br />
-    <a href='/signout'>Sign Out</a>
+    <a href='/signout' class ='button'>Sign Out</a>
   <% else %>
     You are not signed in!<br /><br />
-    <a href='/signin'>Sign In</a><br />
-    <a href='/signup'>Sign Up</a>
+    <a href='/signin' class = 'button'>Sign In</a><br />
+    <a href='/signup' class = 'button'>Sign Up</a>
   <% end %>
 </div>

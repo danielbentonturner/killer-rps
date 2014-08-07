@@ -12,7 +12,10 @@ module RPS
         return {success?: false, error: "Password Invalid."}
       end
 
-      {success?: true, session_id: user.username}
+      {
+        success?: true,
+        session_id: user.username
+      }
     end
   end
 end

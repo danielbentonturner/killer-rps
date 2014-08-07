@@ -13,6 +13,7 @@ use Rack::Flash
 get '/' do
   if session['sesh_example']
     @user = RPS.dbi.get_user_by_username(session['sesh_example'])
+    redirect to '/profile'
   end
   erb :index  
 end
@@ -34,7 +35,7 @@ post '/signup' do
 
   if sign_up[:success?]
     session['sesh_example'] = sign_up[:session_id]
-    redirect to '/'
+    redirect to '/signin'
   else
     flash[:alert] = sign_up[:error]
     redirect to '/signup'
@@ -43,14 +44,9 @@ end
 
 post '/signin' do
   sign_in = RPS::SignIn.run(params)
-  puts "----------------------"
-
-  puts sign_in[:success?]
-  puts sign_in[:session_id]
-  puts "----------------------"
   if sign_in[:success?]
     session['sesh_example'] = sign_in[:session_id]
-    redirect to '/'
+    redirect to "/profile"
   else
     puts 'here'
     flash[:alert] = sign_in[:error]
@@ -63,4 +59,12 @@ get '/signout' do
   redirect to '/'
 end
 
-# get '/'
+get '/profile' do
+  @user = RPS.dbi.get_user_by_username(session['sesh_example'])
+  erb :profile
+end
+
+get '/startgame/:player1/:player2' do
+  erb :index
+  #startgame = RPS::HandelGame.start_game(params)
+end
