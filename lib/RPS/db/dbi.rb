@@ -93,7 +93,7 @@ module RPS
         email,
         last_login)
         VALUES ($1, $2, $3, $4);
-        ],[user.username, user.password_digest, user.email, user.last_login])
+        ], [user.username, user.password_digest, user.email, user.last_login])
 
     end
 

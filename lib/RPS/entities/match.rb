@@ -14,8 +14,3 @@ module RPS
 
   end
 end
-# The Game class calls the Match class and passes player moves as a hash, eg: {player1_move: :rock, player2_move: :paper}
-# The Match class will take in player moves and calulates a result. 
-# The Match class calls DBI module to write the results of each match. 
-# The Match class become a Match object with the resutls of the match, which the Game class uses.
-# The Match object will be player1_move, player2_move, player1_result, player2_result
