@@ -59,7 +59,7 @@ module RPS
         RETURNING id,
         ], [record.player1_move, record.player2_move, record.player1_result, record.player2_result])
 
-        result.first['id'].to_i
+        id = result.first['id'].to_i
     end
 
     def init_game
