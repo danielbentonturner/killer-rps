@@ -65,11 +65,41 @@ module RPS
     def init_game
     end
 
+    def record_user(user)
+      @db.exec_params(%q[
+      INSERT INTO users (
+        name,
+        password_digest,
+        email,
+        last_login)
+        VALUES ($1, $2, $3, $4);
+        ], [user.username, user.password_digest, user.email, user.last_login])
+    end
+
+    def username_exists?(username)
+      result = @db.exec_params(%q[
+          SELECT * FROM users WHERE name = $1;
+        ],[username])
+      if result.count > 1
+        true
+      else
+        false
+      end
+    end
+
     def get_user_by_username(username)
       result = @db.exec_params(%q[
-          SELECT * FROM users WHERE username = $1;
+          SELECT * FROM users WHERE name = $1;
         ],[username])
+      user_data = result.first
+
+      if user_data
+        build_user(user_data)
+      else
+        nil
+      end
     end
+
   end
 
   def self.dbi

@@ -2,7 +2,8 @@ require 'digest/sha1'
 
 module RPS
   class User
-    attr_reader :username, :email, :last_login, :game_history, :created_at
+    attr_reader :username, :email, :last_login, :game_history, :created_at, :password_digest 
+    #change :password_digest to more secure method
 
     def initialize(arg)
       @username = arg[:username]
@@ -14,11 +15,11 @@ module RPS
     end
 
     def update_password(password)
-      @password_digest = Digest::SHA1.hexidigest(password)
+      @password_digest = Digest::SHA1.hexdigest(password)
     end
 
     def valid_password?(password)
-      Digest::SHA1.hexidigest(password) == @password_digest
+      Digest::SHA1.hexdigest(password) == @password_digest
     end
 
   end
