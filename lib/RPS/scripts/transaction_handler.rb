@@ -6,12 +6,11 @@ module RPS
       temp_game = Game.new(data)
       game = RPS.dbi.record_game(temp_game)
       params = {game:game}
-      play_game(params) #-------figure out params
     end
 
     def self.play_game(data)
-      if !game.game_winner_id
-        match = Match.new()
+      if !data[:game].game_winner_id
+        match = Match.new(game_id, player1_move, player2_move)
         data[:game].determine_winner(match.result)
         return true
       end

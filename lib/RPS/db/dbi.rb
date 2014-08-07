@@ -21,7 +21,6 @@ module RPS
         password_digest text,
         email text,
         last_login timestamp,
-        game_history integer[],
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
