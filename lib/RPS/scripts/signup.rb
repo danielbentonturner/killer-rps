@@ -1,6 +1,10 @@
 module RPS
   class SignUp
     def self.run(params)
+      puts "--------------------------"
+      puts params
+      puts "--------------------------"
+
       if params['username'].empty? || params['password'].empty? || params['password_conf'].empty?
         return {:success? => false, :error => "Blank fields"}
       elsif RPS.dbi.username_exists?(params['username'])
@@ -9,7 +13,7 @@ module RPS
         return {:success? => false, :error => "Passwords do not match."}
       end
 
-      user = RPS::User.new(params['username'])
+      user = RPS::User.new(params)
       user.update_password(params['password'])
       RPS.dbi.record_user(user)
       

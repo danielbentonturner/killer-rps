@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 module RPS
   class User
-    attr_reader :username, :email, :last_login, :game_history, :created_at, :password_digest 
+    attr_reader :username, :email, :last_login, :created_at, :password_digest 
     #change :password_digest to more secure method
 
     def initialize(arg)
@@ -10,7 +10,6 @@ module RPS
       @password_digest = arg['password_digest']||nil
       @email = arg['email']
       @last_login = Time.now();
-      @game_histroy = arg['game_histroy']||[]
       @created_at = arg['created_at']||nil
     end
 

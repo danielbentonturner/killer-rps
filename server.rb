@@ -11,7 +11,14 @@ use Rack::Flash
 
 
 get '/' do
+  if session['sesh_example']
+    @user = RPS.dbi.get_user_by_username(session['sesh_example'])
+  end
   erb :index  
+end
+
+get '/signin' do
+  erb :signin
 end
 
 get '/signup' do
@@ -30,17 +37,22 @@ post '/signup' do
     redirect to '/'
   else
     flash[:alert] = sign_up[:error]
-    redirect to '/sign_up'
+    redirect to '/signup'
   end
 end
 
 post '/signin' do
   sign_in = RPS::SignIn.run(params)
+  puts "----------------------"
 
+  puts sign_in[:success?]
+  puts sign_in[:session_id]
+  puts "----------------------"
   if sign_in[:success?]
     session['sesh_example'] = sign_in[:session_id]
     redirect to '/'
   else
+    puts 'here'
     flash[:alert] = sign_in[:error]
     redirect to '/signin'
   end
@@ -50,3 +62,5 @@ get '/signout' do
   session.clear
   redirect to '/'
 end
+
+# get '/'

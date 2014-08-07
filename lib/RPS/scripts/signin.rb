@@ -9,10 +9,10 @@ module RPS
       return {success?: false, error: "No such user"} if user.nil?
 
       if !user.valid_password?(data['password'])
-        return {succes?: false, error: "Password Invalid."}
+        return {success?: false, error: "Password Invalid."}
       end
 
-      {succes?: true, session_id: user.username}
+      {success?: true, session_id: user.username}
     end
   end
 end

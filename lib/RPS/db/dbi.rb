@@ -17,11 +17,10 @@ module RPS
       @db.exec_params(%q[
       CREATE TABLE IF NOT EXISTS users(
         id serial NOT NULL PRIMARY KEY,
-        name varchar(30),
+        username varchar(30),
         password_digest text,
         email text,
         last_login timestamp,
-        game_history integer[],
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
@@ -48,6 +47,15 @@ module RPS
       )])
     end
 
+    def build_user(data)
+      user = User.new(data)
+        puts "++++++++++++++++"
+        puts "building user"
+        puts user
+        puts "++++++++++++++++"
+        user
+    end
+
     def record_match(record)
       result = @db.exec_params(%q[
       INSERT INTO matches (
@@ -63,12 +71,14 @@ module RPS
     end
 
     def init_game
+      result = @db.exec_params(%q[]
+        )
     end
 
     def record_user(user)
       @db.exec_params(%q[
       INSERT INTO users (
-        name,
+        username,
         password_digest,
         email,
         last_login)
@@ -78,7 +88,7 @@ module RPS
 
     def username_exists?(username)
       result = @db.exec_params(%q[
-          SELECT * FROM users WHERE name = $1;
+          SELECT * FROM users WHERE username = $1;
         ],[username])
       if result.count > 1
         true
@@ -89,9 +99,9 @@ module RPS
 
     def get_user_by_username(username)
       result = @db.exec_params(%q[
-          SELECT * FROM users WHERE name = $1;
+          SELECT * FROM users WHERE username = $1;
         ],[username])
-      user_data = result.first
+        user_data = result.first
 
       if user_data
         build_user(user_data)
@@ -99,6 +109,7 @@ module RPS
         nil
       end
     end
+
 
   end
 
