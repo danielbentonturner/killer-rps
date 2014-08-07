@@ -49,14 +49,20 @@ module RPS
     end
 
     def record_match(record)
-      @db.exec_params(%q[
+      result = @db.exec_params(%q[
       INSERT INTO matches (
         player1_move, 
         player2_move,
         player1_result,
         player2_result)
         VALUES ($1, $2, $3, $4);
+        RETURNING id,
         ], [record.player1_move, record.player2_move, record.player1_result, record.player2_result])
+
+        result.first['id'].to_i
+    end
+
+    def init_game
     end
 
     def get_user_by_username(username)
