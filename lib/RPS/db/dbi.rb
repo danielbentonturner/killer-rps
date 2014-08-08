@@ -52,12 +52,12 @@ module RPS
         game_id,
         player1_move, 
         player2_move,
-        result
+        result)
         VALUES ($1, $2, $3, $4)
         RETURNING id;
         ], [match.game_id, match.player1_move, match.player2_move, match.result])
 
-      match.instance_variable_set(:match_id, result.first['id'].to_i)
+      match.instance_variable_set(:@match_id, result.first['id'].to_i)
       match
     end
 

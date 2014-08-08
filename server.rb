@@ -11,8 +11,8 @@ use Rack::Flash
 
 
 get '/' do
-  if session['sesh_example']
-    @user = RPS.dbi.get_user_by_username(session['sesh_example'])
+  if session['k1ll3r_RPS']
+    @user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
     redirect to '/profile'
   end
   erb :index  
@@ -23,7 +23,7 @@ get '/signin' do
 end
 
 get '/signup' do
-  if session['sesh_example']
+  if session['k1ll3r_RPS']
     redirect to '/'
   else
     erb :signup
@@ -34,7 +34,7 @@ post '/signup' do
   sign_up = RPS::SignUp.run(params)
 
   if sign_up[:success?]
-    session['sesh_example'] = sign_up[:session_id]
+    session['k1ll3r_RPS'] = sign_up[:session_id]
     redirect to '/signin'
   else
     flash[:alert] = sign_up[:error]
@@ -45,7 +45,7 @@ end
 post '/signin' do
   sign_in = RPS::SignIn.run(params)
   if sign_in[:success?]
-    session['sesh_example'] = sign_in[:session_id]
+    session['k1ll3r_RPS'] = sign_in[:session_id]
     redirect to "/profile"
   else
     flash[:alert] = sign_in[:error]
@@ -59,28 +59,25 @@ get '/signout' do
 end
 
 get '/profile' do
-  @user = RPS.dbi.get_user_by_username(session['sesh_example'])
+  @user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
   erb :profile
 end
 
 get '/startgame/:player1_id/:player2_id' do
-  puts params
-  puts "!!!!!!!!!!!!!!!!!!!!"
   startgame = RPS::InitGame.run(params)
-  puts startgame.game_id
   redirect to "/game/#{startgame.game_id}"
 end
 
 get '/game/:game_id' do
+  p2_for_game = RPS.dbi.get_game_by_id(params['game_id']).player2_id
   p1_for_game = RPS.dbi.get_game_by_id(params['game_id']).player1_id
-  p1_username = RPS.dbi.get_user_by_id(params[p1_for_game]).username
-  @player1 = session['sesh_example'] == p1_username ? true:false
-  puts @player1
-  puts "-==-=-================="
+  @p1_username = RPS.dbi.get_user_by_id(p1_for_game).username
+  @p2_username = RPS.dbi.get_user_by_id(p2_for_game).username
+  @player1 = session['k1ll3r_RPS'] == @p1_username ? true:false
   erb :game
 end
 
 get '/game/:game_id/play/:move' do
-  @play = RSP::PlayGame.run(params)
+  @play = RPS::PlayGame.run(params)
   redirect to "/game/#{params['game_id']}"
 end
