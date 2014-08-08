@@ -31,7 +31,7 @@ module RPS
         player1_id integer REFERENCES users(id),
         player2_id integer REFERENCES users(id),
         game_winner_id integer REFERENCES users(id),
-        turn varchar(7)
+        turn varchar(7),
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
@@ -68,7 +68,7 @@ module RPS
         player1_move = $1, 
         player2_move = $2,
         result = $3 WHERE id  = $4
-        ], [match.player1_move, match.player2_move, match.result, match.id])
+        ], [match.player1_move, match.player2_move, match.result, match.match_id])
     end
 
     def record_game(game)
@@ -92,9 +92,9 @@ module RPS
       UPDATE games SET
         player1_id = $1, 
         player2_id = $2,
-        game_winner_id = $3
+        game_winner_id = $3,
         turn = $4 WHERE id = $5
-        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.id])
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.game_id])
 
     end
 
@@ -153,7 +153,7 @@ module RPS
 
     def get_match_by_game_id(game_id)
       result = @db.exec_params(%q[
-      SELECT * FROM matches WHERE id = $1;
+      SELECT * FROM matches WHERE game_id = $1;
       ],[game_id])
       match_data = result.first
 
