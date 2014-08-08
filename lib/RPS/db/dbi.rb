@@ -187,6 +187,19 @@ module RPS
       end
     end
 
+    def get_user_by_id(user_id)
+      result = @db.exec_params(%q[
+          SELECT * FROM users WHERE id = $1;
+        ],[user_id])
+        user_data = result.first
+
+      if user_data
+        build_user(user_data)
+      else
+        nil
+      end
+    end
+
 
   end
 
