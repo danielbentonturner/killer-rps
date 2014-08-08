@@ -79,5 +79,6 @@ end
 
 get '/game/:game_id/play/:move' do
   @play = RPS::PlayGame.run(params)
-  redirect to "/game/#{params['game_id']}"
+  # redirect to "/game/#{params['game_id']}"
+  redirect to '/'
 end

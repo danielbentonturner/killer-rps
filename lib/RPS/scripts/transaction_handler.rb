@@ -21,10 +21,10 @@ module RPS
           RPS.dbi.record_match(match)
         else
           match = RPS.dbi.get_match_by_game_id(game.game_id)
-          match.play(data['move'])
+          result = match.play(data['move'])
           RPS.dbi.update_match(match)
           game.turn = 'player1'
-          game.check_winner
+          game.check_winner(result)
         end
       end
       RPS.dbi.update(game)

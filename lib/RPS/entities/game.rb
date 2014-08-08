@@ -1,7 +1,7 @@
 module RPS
 
   class Game
-    attr_reader :game_id, :player1_id, :player2_id, :game_winner_id, :game_status
+    attr_reader :game_id, :player1_id, :player2_id, :game_winner_id, :game_status, :tempname
     attr_accessor :turn
 
     def initialize(data)
@@ -18,7 +18,7 @@ module RPS
     def check_winner(result)
       if result != :draw
         @tempname[result]+=1
-        tempname.each do |player,score| 
+        @tempname.each do |player,score| 
           if score >=3 
             if player == :player1
               @game_winner_id = @player1_id
