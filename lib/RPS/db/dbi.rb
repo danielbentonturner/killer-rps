@@ -31,6 +31,7 @@ module RPS
         player1_id integer REFERENCES users(id),
         player2_id integer REFERENCES users(id),
         game_winner_id integer REFERENCES users(id),
+        turn varchar(7)
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
@@ -52,12 +53,12 @@ module RPS
         game_id,
         player1_move, 
         player2_move,
-        result
+        result)
         VALUES ($1, $2, $3, $4)
         RETURNING id;
         ], [match.game_id, match.player1_move, match.player2_move, match.result])
 
-      match.instance_variable_set(:match_id, result.first['id'].to_i)
+      match.instance_variable_set(@:match_id, result.first['id'].to_i)
       match
     end
 
@@ -75,12 +76,13 @@ module RPS
       INSERT INTO games(
         player1_id, 
         player2_id,
-        game_winner_id)
-        VALUES ($1, $2, $3)
+        game_winner_id,
+        turn)
+        VALUES ($1, $2, $3, $4)
         RETURNING id;
-        ], [game.player1_id, game.player2_id, game.game_winner_id])
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn])
 
-      game.instance_variable_set(:@game_id, result.first['id'].to_i)
+      game.instance_variable_set(@:@game_id, result.first['id'].to_i)
       game
 
     end
@@ -90,8 +92,9 @@ module RPS
       UPDATE games SET
         player1_id = $1, 
         player2_id = $2,
-        game_winner_id = $3 WHERE id = $4
-        ], [game.player1_id, game.player2_id, game.game_winner_id, game.id])
+        game_winner_id = $3
+        turn = $4 WHERE id = $5
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.id])
 
     end
 

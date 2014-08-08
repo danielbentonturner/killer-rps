@@ -13,10 +13,12 @@ module RPS
 
     def self.run(data)
       game = RPS::DBI.get_game_by_id(data['game_id'])
+
       if game.game_winner_id.nil?
-        if game.turn == :player1
+        if game.turn == 'player1'
           match = RPS::Match.new({'game_id' => game.game_id, 'player_move' => data['move']})
-          game.turn = :player2
+          game.turn = 'player2'
+          RPS.dbi.update_game(game)
           RPS::DBI.record_match(match)
         else
           match = RPS::DBI.get_match_by_game_id(data['game_id'])
