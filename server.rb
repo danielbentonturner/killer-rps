@@ -73,11 +73,14 @@ end
 
 get '/game/:game_id' do
   p1_for_game = RPS.dbi.get_game_by_id(params['game_id']).player1_id
-  @player1 = session['sesh_example'] == p1_for_game ? true:false
+  p1_username = RPS.dbi.get_user_by_id(params[p1_for_game]).username
+  @player1 = session['sesh_example'] == p1_username ? true:false
+  puts @player1
+  puts "-==-=-================="
   erb :game
 end
 
 get '/game/:game_id/play/:move' do
-  #@play = RSP::PlayGame.run(params)
+  @play = RSP::PlayGame.run(params)
   redirect to "/game/#{params['game_id']}"
 end
