@@ -1,37 +1,24 @@
-<!-- <div align="center">
-  <h2>Pick Move!</h2>
-  <% if flash[:alert] %>
-    Alert:<%= flash[:alert] %>
-  <% end %>
-  <form action='/signup' method='post'>
-    <input type='text' name='username' placeholder='Username'><br>
-    <input type='text' name='email' placeholder='Email'><br>
-    <input type='password' name='password' placeholder='Password'><br />
-    <input type='password' name='password_conf' placeholder='Verify password'><br />
-    <input type='submit' value='Submit'>
-  </form>
-</div>   -->
 
 <%if @player1%>
   <div class="row"> 
-    <h1>PLAYER 1</h1>
+    <h1>Player 1: <%=@p1_username%></h1>
     <a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns button rock">ROCK</a>
     <a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns button paper">PAPER</a>
     <a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns button scissors">SCISSOR</a>
   </div> 
   <div class="row">
     <div class="large-centered large-8 columns">
-      <h1>PLAYER2</h1>
+      <h1>Player 2: <%=@p2_username%></h1>
     </div>
   </div>
 <%else%>
   <div class="row">
     <div class="large-centered large-8 columns">
-      <h1>PLAYER1</h1>
+      <h1><%=@p1_username%></h1>
     </div>
   </div>
   <div class="row"> 
-    <h1>PLAYER 2</h1>
+    <h1><%=@p2_username%></h1>
     <a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns button rock">ROCK</a>
     <a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns button paper">PAPER</a>
     <a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns button scissors">SCISSOR</a>

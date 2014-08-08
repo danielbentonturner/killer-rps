@@ -58,7 +58,7 @@ module RPS
         RETURNING id;
         ], [match.game_id, match.player1_move, match.player2_move, match.result])
 
-      match.instance_variable_set(@:match_id, result.first['id'].to_i)
+      match.instance_variable_set(:@match_id, result.first['id'].to_i)
       match
     end
 
@@ -82,7 +82,7 @@ module RPS
         RETURNING id;
         ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn])
 
-      game.instance_variable_set(@:@game_id, result.first['id'].to_i)
+      game.instance_variable_set(:@game_id, result.first['id'].to_i)
       game
 
     end

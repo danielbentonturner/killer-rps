@@ -5,7 +5,7 @@ module RPS
     attr_accessor :turn
 
     def initialize(data)
-      @game_id = nil
+      @game_id = nil || data['id']
       @player1_id = data['player1_id']
       @player2_id = data['player2_id']
       @game_winner_id = data['game_winner_id'] ||  nil
@@ -15,6 +15,7 @@ module RPS
     
 
     def check_winner?
+
     end
 
 
