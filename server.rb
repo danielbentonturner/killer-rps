@@ -72,6 +72,8 @@ get '/startgame/:player1_id/:player2_id' do
 end
 
 get '/game/:game_id' do
+  p1_for_game = RPS.dbi.get_game_by_id(params['game_id'].to_i)['player1_id']
+  @player1 = session['sesh_example'] == p1_for_game ? true:false
   erb :game
 end
 
