@@ -2,9 +2,10 @@ require 'killer_rps'
 
 module RPS
   class Match
-    attr_reader :game_id, :player1_move, :player2_move, :result
+    attr_reader :match_id, :game_id, :player1_move, :player2_move, :result
 
-    def initialize(game_id, player1_move)
+    def initialize(data)
+      @match_id = nil
       @game_id = game_id
       @player1_move = player1_move
       @player2_move = nil

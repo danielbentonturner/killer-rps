@@ -10,7 +10,7 @@ module RPS
       @player2_id = data['player2_id']
       @game_winner_id = nil
       @game_status = nil
-      @turn = player1
+      @turn = :player1
     end
     
 
