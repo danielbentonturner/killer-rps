@@ -137,7 +137,7 @@ module RPS
 
     def get_match_by_id(match_id)
       result = @db.exec_params(%q[
-      SELECT * FROM matches WHERE match_id = $1;
+      SELECT * FROM matches WHERE id = $1;
       ],[match_id])
       match_data = result.first
 
@@ -150,7 +150,7 @@ module RPS
 
     def get_match_by_game_id(game_id)
       result = @db.exec_params(%q[
-      SELECT * FROM matches WHERE game_id = $1;
+      SELECT * FROM matches WHERE id = $1;
       ],[game_id])
       match_data = result.first
 
@@ -163,7 +163,7 @@ module RPS
 
     def get_game_by_id(game_id)
       result = @db.exec_params(%q[
-      SELECT * FROM games WHERE game_id = $1;
+      SELECT * FROM games WHERE id = $1;
       ],[game_id])
       game_data = result.first
 
