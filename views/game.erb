@@ -12,8 +12,17 @@
   </form>
 </div>   -->
 
+<%if @player1%>
+  <div class="row"> 
+    <h1>PLAYER 1</h1>
+    <a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns button rock">ROCK</a>
+    <a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns button paper">PAPER</a>
+    <a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns button scissors">SCISSOR</a>
+  </div> 
+
 <div class="row"> 
-  <a href="/game/<%=params[:game_id]%>/rock" class="large-4 columns button rock">ROCK</a>
-  <a href="/game/<%=params[:game_id]%>/paper" class="large-4 columns button paper">PAPER</a>
-  <a href="/game/<%=params[:game_id]%>/scissors" class="large-4 columns button scissors">SCISSOR</a>
+  <h1>PLAYER 2</h1>
+  <a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns button rock">ROCK</a>
+  <a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns button paper">PAPER</a>
+  <a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns button scissors">SCISSOR</a>
 </div> 

@@ -64,14 +64,18 @@ get '/profile' do
 end
 
 get '/startgame/:player1_id/:player2_id' do
+  puts params
+  puts "!!!!!!!!!!!!!!!!!!!!"
   startgame = RPS::InitGame.run(params)
-  redirect to '/game/#{game.game_id}'
+  puts startgame.game_id
+  redirect to "/game/#{startgame.game_id}"
 end
 
 get '/game/:game_id' do
   erb :game
 end
 
-get '/game/:game_id/play/:move/' do
-  @play = RSP::PlayGame.run(params)
+get '/game/:game_id/play/:move' do
+  #@play = RSP::PlayGame.run(params)
+  redirect to "/game/#{params['game_id']}"
 end
