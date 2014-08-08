@@ -48,7 +48,15 @@ module RPS
 
 
     def build_user(data)
-      user = User.new(data)
+      user = RPS::User.new(data)
+    end
+
+    def build_game(data)
+      game = RPS::Game.new(data)
+    end
+
+    def build_match(data)
+      match = RPS::Match.new(data)
     end
 
     def record_match(match)
@@ -62,7 +70,8 @@ module RPS
         RETURNING id;
         ], [match.player1_move, match.player2_move, match.player1_result, match.player2_result])
 
-        id = result.first['id'].to_i
+        match.instance_variable_set(:match_id, result.first['id'].to_i)
+        match
     end
 
     def record_game(game)
@@ -105,6 +114,32 @@ module RPS
         true
       else
         false
+      end
+    end
+
+    def get_match_by_id(match_id)
+      result = @db.exec_params(%q[
+      SELECT * FROM match WHERE match_id = $1;
+      ],[match_id])
+      match_data = result.first
+
+      if match_data
+        build_match(match_data)
+      else
+        nil
+      end
+    end
+
+    def get_game_by_id(game_id)
+      result = @db.exec_params(%q[
+      SELECT * FROM game WHERE game_id = $1;
+      ],[game_id])
+      game_data = result.first
+
+      if game_data
+        build_game(game_data)
+      else
+        nil
       end
     end
 
