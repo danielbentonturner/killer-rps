@@ -8,9 +8,9 @@ module RPS
       @game_id = nil
       @player1_id = data['player1_id']
       @player2_id = data['player2_id']
-      @game_winner_id = nil
-      @game_status = nil
-      @turn = player1
+      @game_winner_id = data['game_winner_id'] ||  nil
+      @game_status = data['game_status'] ||  nil
+      @turn = :player1
     end
     
 

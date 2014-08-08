@@ -48,7 +48,6 @@ post '/signin' do
     session['sesh_example'] = sign_in[:session_id]
     redirect to "/profile"
   else
-    puts 'here'
     flash[:alert] = sign_in[:error]
     redirect to '/signin'
   end
@@ -65,7 +64,6 @@ get '/profile' do
 end
 
 get '/startgame/:player1_id/:player2_id' do
-  puts params
   startgame = RPS::InitGame.run(params)
   redirect to '/game/#{game.game_id}'
 end
@@ -74,6 +72,6 @@ get '/game/:game_id' do
   erb :game
 end
 
-post '/game/:game_id/play/:player_id'
+get '/game/:game_id/play/:move/' do
   @play = RSP::PlayGame.run(params)
 end
