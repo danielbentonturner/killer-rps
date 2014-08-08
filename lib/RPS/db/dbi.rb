@@ -38,40 +38,36 @@ module RPS
       @db.exec_params(%q[
       CREATE TABLE IF NOT EXISTS matches(
         id serial NOT NULL PRIMARY KEY,
-        player1_move varchar(9),
-        player2_move varchar(9),
-        player1_result varchar(5),
-        player2_result varchar(5),
+        game_id integer REFERENCES games(id),
+        player1_move varchar(8),
+        player2_move varchar(8),
+        result varchar(7),
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
-    end
-
-
-    def build_user(data)
-      user = RPS::User.new(data)
-    end
-
-    def build_game(data)
-      game = RPS::Game.new(data)
-    end
-
-    def build_match(data)
-      match = RPS::Match.new(data)
     end
 
     def record_match(match)
       result = @db.exec_params(%q[
       INSERT INTO matches (
+        game_id,
         player1_move, 
         player2_move,
-        player1_result,
-        player2_result)
+        result
         VALUES ($1, $2, $3, $4)
         RETURNING id;
-        ], [match.player1_move, match.player2_move, match.player1_result, match.player2_result])
+        ], [match.game_id, match.player1_move, match.player2_move, match.result])
 
-        match.instance_variable_set(:match_id, result.first['id'].to_i)
-        match
+      match.instance_variable_set(:match_id, result.first['id'].to_i)
+      match
+    end
+
+    def update_match(match)
+      result = @db.exec_params(%q[
+      UPDATE matches SET
+        player1_move = $1, 
+        player2_move = $2,
+        result = $3 WHERE id  = $4
+        ], [match.player1_move, match.player2_move, match.result, match.id])
     end
 
     def record_game(game)
@@ -84,8 +80,18 @@ module RPS
         RETURNING id;
         ], [game.player1_id, game.player2_id, game.game_winner_id])
 
-        game.instance_variable_set(:@game_id, result.first['id'].to_i)
-        game
+      game.instance_variable_set(:@game_id, result.first['id'].to_i)
+      game
+
+    end
+
+    def update_game(game)
+      result = @db.exec_params(%q[
+      UPDATE games SET
+        player1_id = $1, 
+        player2_id = $2,
+        game_winner_id = $3 WHERE id = $4
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.id])
 
     end
 
@@ -117,10 +123,35 @@ module RPS
       end
     end
 
+    def build_user(data)
+      user = RPS::User.new(data)
+    end
+
+    def build_game(data)
+      game = RPS::Game.new(data)
+    end
+
+    def build_match(data)
+      match = RPS::Match.new(data)
+    end
+
     def get_match_by_id(match_id)
       result = @db.exec_params(%q[
-      SELECT * FROM match WHERE match_id = $1;
+      SELECT * FROM matches WHERE match_id = $1;
       ],[match_id])
+      match_data = result.first
+
+      if match_data
+        build_match(match_data)
+      else
+        nil
+      end
+    end
+
+    def get_match_by_game_id(game_id)
+      result = @db.exec_params(%q[
+      SELECT * FROM matches WHERE game_id = $1;
+      ],[game_id])
       match_data = result.first
 
       if match_data
@@ -132,7 +163,7 @@ module RPS
 
     def get_game_by_id(game_id)
       result = @db.exec_params(%q[
-      SELECT * FROM game WHERE game_id = $1;
+      SELECT * FROM games WHERE game_id = $1;
       ],[game_id])
       game_data = result.first
 
