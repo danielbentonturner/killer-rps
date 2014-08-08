@@ -132,7 +132,7 @@ module RPS
 
     def get_game_by_id(game_id)
       result = @db.exec_params(%q[
-      SELECT * FROM game WHERE game_id = $1;
+      SELECT * FROM games WHERE game_id = $1;
       ],[game_id])
       game_data = result.first
 
