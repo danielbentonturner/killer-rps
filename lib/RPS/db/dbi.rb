@@ -137,7 +137,7 @@ module RPS
 
     def get_match_by_id(match_id)
       result = @db.exec_params(%q[
-      SELECT * FROM matches WHERE match_id = $1;
+      SELECT * FROM matches WHERE id = $1;
       ],[match_id])
       match_data = result.first
 
