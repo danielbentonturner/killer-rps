@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/danielbentonturner/killer_rps.git
-  revision: 61ab585023af4fd09df5da0eb50fda38f89536b5
+  revision: 08b7b519750c12321740ca5d02c9261110c69c56
   specs:
-    killer_rps (0.0.1)
+    killer_rps (0.0.2)
 
 GEM
   remote: https://rubygems.org/
