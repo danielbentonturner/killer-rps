@@ -107,3 +107,7 @@ end
 get '/game/play/err/wrong_turn' do
   erb :wrong_turn
 end
+
+get '/moo' do
+  erb :moo
+end
