@@ -2,22 +2,26 @@
 
 <%if @player1%>
 <div class="row">
-<div class="panel">
-  <div class="row"> 
-      <center><h1><%=@p1_username%> VS. <%=@p2_username%></h1></center>
+  <div class="panel">
+    <div class="row"> 
+        <center><h1>Player 1: <%=@p1_username%> VS. <%=@p2_username%></h1></center>
+      <a href="/" class= 'button'>HOME</a>
+      <center><a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns rock"><img src="/styles/rock.png"></a></center>
+      <center><a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns paper"><img src="/styles/paper.png"></a></center>
+      <center><a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns scissors"><img src="/styles/scissors.png"></a></center>
+    </div> 
+  </div>
+</div>
+<%else%>
+<div class="row">
+  <div class="panel">
+    <div class="row">
+      <center><h1>Player 2: <%=@p2_username%> VS. <%=@p1_username%></h1></center>
     <a href="/" class= 'button'>HOME</a>
     <center><a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns rock"><img src="/styles/rock.png"></a></center>
     <center><a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns paper"><img src="/styles/paper.png"></a></center>
     <center><a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns scissors"><img src="/styles/scissors.png"></a></center>
-  </div> 
+    </div>
+  </div>
 </div>
-<%else%>
-  <div class="row">
-    <center><h1><%=@p1_username%> VS. <%=@p2_username%></h1></center>
-  <a href="/" class= 'button'>HOME</a>
-  <center><a href="/game/<%=params[:game_id]%>/play/rock" class="large-4 columns rock"><img src="/styles/rock.png"></a></center>
-  <center><a href="/game/<%=params[:game_id]%>/play/paper" class="large-4 columns paper"><img src="/styles/paper.png"></a></center>
-  <center><a href="/game/<%=params[:game_id]%>/play/scissors" class="large-4 columns scissors"><img src="/styles/scissors.png"></a></center>
-  </div>
-  </div>
 <%end%>
