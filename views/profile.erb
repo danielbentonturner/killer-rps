@@ -1,15 +1,16 @@
-<%= @user.username %>
-<a href = '/startgame/<%=@user.user_id%>/2' class ='button'> Start <a>
-<a href = '/signout' class ='button'> logout <a>
-
+<center>
+	<h3><%= @user.username %></h3>
+	<a href = '/startgame/<%=@user.user_id%>/2' class ='button'> Start <a>
+	<a href = '/signout' class ='button'> logout <a>
+</center>
 <div class="row" data-equalizer>
 	<div class="large-6 columns">
-    	<ul class="game_list" data-equalizer-watch>
+    	<ul class="pricing-table" data-equalizer-watch>
     		<center>
     			<h3>Current Games</h3>
     		</center>
     		<% @game_hash['in_progress'].each do |game|%>
-    			<li><a class = 'game_li' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a> </li>
+    			<center><li><a class = 'button' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a> </li></center>
     		<% end %>
    		</ul>    
    	</div>

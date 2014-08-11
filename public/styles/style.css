@@ -1,0 +1,15 @@
+body{
+	background:hotpink;
+}
+
+img {
+	border-radius: 2em
+}
+
+li {
+	background:white;
+}
+
+.panel {
+	border-radius: 1em;
+}
