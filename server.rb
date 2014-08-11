@@ -69,15 +69,32 @@ get '/startgame/:player1_id/:player2_id' do
 end
 
 get '/game/:game_id' do
-  p2_for_game = RPS.dbi.get_game_by_id(params['game_id']).player2_id
-  p1_for_game = RPS.dbi.get_game_by_id(params['game_id']).player1_id
+  game = RPS.dbi.get_game_by_id(params['game_id'])
+  sess_user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
+  p2_for_game = game.player2_id
+  p1_for_game = game.player1_id
   @p1_username = RPS.dbi.get_user_by_id(p1_for_game).username
   @p2_username = RPS.dbi.get_user_by_id(p2_for_game).username
   @player1 = session['k1ll3r_RPS'] == @p1_username ? true:false
-  erb :game
+  # erb :game
+  if game.game_winner_id == sess_user.user_id
+    redirect to '/game/result/winner'
+  elsif !game.game_winner_id.nil?
+    redirect to '/game/result/loser'
+  else
+    erb :game
+  end
 end
 
 get '/game/:game_id/play/:move' do
   @play = RPS::PlayGame.run(params)
   redirect to "/game/#{params['game_id']}"
+end
+
+get '/game/result/winner' do
+  erb :winner
+end
+
+get '/game/result/loser' do
+  erb :loser
 end
