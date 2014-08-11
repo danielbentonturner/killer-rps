@@ -30,8 +30,6 @@ module RPS
           RPS.dbi.update_game(game)
           game.game_winner_id
         end
-      else
-        redirect to "/"
       end
     end
   end
