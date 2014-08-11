@@ -9,8 +9,8 @@ module RPS
       @player1_id = data['player1_id']
       @player2_id = data['player2_id']
       @game_winner_id = data['game_winner_id'] ||  nil
-      @game_status = data['game_status'] ||  nil
       @turn = data['turn'] || @player1_id
+      @game_status = data['game_status'] ||  'in_progress'
       @tempname = Hash.new(0)
     end
 
@@ -26,6 +26,7 @@ module RPS
               else
                 @game_winner_id = @player2_id
               end
+              @game_status = 'complete'
             end
           end
         end

@@ -60,6 +60,7 @@ end
 
 get '/profile' do
   @user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
+  RPS::MatchLookup.run(@user)
   erb :profile
 end
 
