@@ -1,6 +1,6 @@
 <%= @user.username %>
-<a href = '/startgame/<%=@user.user_id%>/2' class ='button'> Start </a>
-<a href = '/signout' class ='button'> logout </a>
+<a href = '/startgame/<%=@user.user_id%>/2' class ='button'> Start <a>
+<a href = '/signout' class ='button'> logout <a>
 
 <div class="row" data-equalizer>
 	<div class="large-6 columns">
@@ -8,14 +8,13 @@
     		<center>
     			<h3>Current Games</h3>
     		</center>
-    		<% @match_hash['in_progress'].each do |match|%>
-    			<li><a class = 'match' href='/startgame/<%=@user.user_id%>/<%=match.math_id%>'> Game: <%=match.game_id%></a> </li>
-    		<% end %>
-   <!--  		<li> GAME </li>
+    		<% @match_hash['current'].each do |match|%>
+    			<li><a class = 'match' href='/startgame/<%=@user.user_id%>/<%=match.math_id%>'> Game: <%=match.game_id%>   VS: <%=game.player <</li>
+    		<li> GAME </li>
 		    <li> GAME </li>
 		    <li> GAME </li>
 		    <li> GAME </li>
-		    <li> GAME </li> -->
+		    <li> GAME </li>
 			<li class="cta-button"><a class="button" href="#">Buy Now</a></li>
    		</ul>    
    	</div>
