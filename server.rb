@@ -35,7 +35,7 @@ post '/signup' do
 
   if sign_up[:success?]
     session['k1ll3r_RPS'] = sign_up[:session_id]
-    redirect to '/signin'
+    redirect to '/profile'
   else
     flash[:alert] = sign_up[:error]
     redirect to '/signup'
@@ -60,7 +60,7 @@ end
 
 get '/profile' do
   @user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
-  RPS::MatchLookup.run(@user)
+  @game_hash = RPS::GameLookup.run(@user)
   erb :profile
 end
 
