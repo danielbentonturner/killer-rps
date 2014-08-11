@@ -10,7 +10,7 @@ module RPS
       @player2_id = data['player2_id']
       @game_winner_id = data['game_winner_id'] ||  nil
       @game_status = data['game_status'] ||  nil
-      @turn = data['turn'] || 'player1'
+      @turn = data['turn'] || @player1_id
       @tempname = Hash.new(0)
     end
 

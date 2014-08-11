@@ -2,8 +2,8 @@ module RPS
 
   class InitGame
 
-    def self.run(data)
-      temp_game = RPS::Game.new(data)
+    def self.run(user_ids)
+      temp_game = RPS::Game.new(user_ids)
       game = RPS.dbi.record_game(temp_game)
     end
 
@@ -11,19 +11,19 @@ module RPS
 
   class PlayGame
 
-    def self.run(data)
-      game = RPS.dbi.get_game_by_id(data['game_id'])
+    def self.run(match_data)
+      game = RPS.dbi.get_game_by_id(match_data['game_id'])
       if game.game_winner_id.nil?
-        if game.turn == 'player1'
-          match = RPS::Match.new({'game_id' => game.game_id, 'player1_move' => data['move']})
-          game.turn = 'player2'
+        if game.turn == game.player1_id
+          match = RPS::Match.new({'game_id' => game.game_id, 'player1_move' => match_data['move']})
+          game.turn = game.player2_id
           RPS.dbi.update_game(game)
           RPS.dbi.record_match(match)
           game.game_winner_id
         else
           match = RPS.dbi.get_match_by_game_id(game.game_id)
-          match.play(data['move'])
-          game.turn = 'player1'
+          match.play(match_data['move'])
+          game.turn = game.player1_id
           RPS.dbi.update_match(match)
           match_winners_list = RPS.dbi.get_match_winners_by_game_id(game.game_id)
           game.check_winner(match_winners_list)

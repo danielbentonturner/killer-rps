@@ -185,6 +185,24 @@ module RPS
       end
     end
 
+    def get_game_by_user_id(user_id)
+      result = @db.exec_params(%q[
+      SELECT * FROM games WHERE player1_id = $1 OR player2_id = $1;
+      ],[user_id])
+      games_played = []
+      result.each do |game_instance| 
+        games_played.push(build_game(game_instance))
+      end
+      games_played
+      # game_data = result.first
+
+      # if game_data
+      #   build_game(game_data)
+      # else
+      #   nil
+      # end
+    end
+
     def get_user_by_username(username)
       result = @db.exec_params(%q[
           SELECT * FROM users WHERE username = $1;
