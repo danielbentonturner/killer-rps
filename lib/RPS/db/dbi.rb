@@ -32,6 +32,7 @@ module RPS
         player2_id integer REFERENCES users(id),
         game_winner_id integer REFERENCES users(id),
         turn varchar(7),
+        game_status varchar(11),
         created_at timestamp NOT NULL DEFAULT current_timestamp
       )])
 
@@ -77,10 +78,11 @@ module RPS
         player1_id, 
         player2_id,
         game_winner_id,
-        turn)
-        VALUES ($1, $2, $3, $4)
+        turn,
+        game_status)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING id;
-        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn])
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.game_status])
 
       game.instance_variable_set(:@game_id, result.first['id'].to_i)
       game
@@ -93,8 +95,10 @@ module RPS
         player1_id = $1, 
         player2_id = $2,
         game_winner_id = $3,
-        turn = $4 WHERE id = $5
-        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.game_id])
+        turn = $4,
+        game_status = $5 
+        WHERE id = $6
+        ], [game.player1_id, game.player2_id, game.game_winner_id, game.turn, game.game_status, game.game_id])
 
     end
 

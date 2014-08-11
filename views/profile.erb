@@ -4,22 +4,17 @@
 
 <div class="row" data-equalizer>
 	<div class="large-6 columns">
-    	<ul class="pricing-table" data-equalizer-watch>
+    	<ul class="game_list" data-equalizer-watch>
     		<center>
     			<h3>Current Games</h3>
     		</center>
-    		<% @match_hash['current'].each do |match|%>
-    			<li><a class = 'match' href='/startgame/<%=@user.user_id%>/<%=match.math_id%>'> Game: <%=match.game_id%>   VS: <%=game.player <</li>
-    		<li> GAME </li>
-		    <li> GAME </li>
-		    <li> GAME </li>
-		    <li> GAME </li>
-		    <li> GAME </li>
-			<li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+    		<% @game_hash['in_progress'].each do |game|%>
+    			<li><a class = 'game_li' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a> </li>
+    		<% end %>
    		</ul>    
    	</div>
    	<div class="large-6 columns">
     	<ul class="pricing-table" data-equalizer-watch>
-      	<li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+      	<li class="cta-button"><a class="button" href="#">Moooooooooo!</a></li>
     </ul>    
   </div>
