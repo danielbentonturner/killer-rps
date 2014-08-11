@@ -17,9 +17,6 @@ module RPS
       @player1_move = @player1_move.to_sym
       @player2_move = move.to_sym
       @result = KillerRPS.play({player1: @player1_move, player2: @player2_move})
-      puts ")))))))))))))))))))))))))))))))))"
-      p @result
-      puts ")))))))))))))))))))))))))))))))))"
     end
   end
 end

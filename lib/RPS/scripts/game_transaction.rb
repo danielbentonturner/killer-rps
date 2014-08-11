@@ -14,9 +14,6 @@ module RPS
     def self.run(match_data)
       game = RPS.dbi.get_game_by_id(match_data['game_id'])
       sesh_user = RPS.dbi.get_user_by_username(match_data['sesh_name'])
-      puts "+++++++++++++++"
-      p match_data['sesh_name']
-      puts "+++++++++++++++"
 
       if game.game_winner_id.nil? 
         if game.turn == sesh_user.user_id && game.player1_id == sesh_user.user_id
