@@ -1,8 +1,8 @@
 module RPS
 
   class Game
-    attr_reader :game_id, :player1_id, :player2_id, :game_winner_id, :game_status, :tempname
-    attr_accessor :turn
+    attr_reader :game_id, :player1_id, :player2_id, :game_winner_id, :tempname
+    attr_accessor :turn, :game_status
 
     def initialize(data)
       @game_id = nil || data['id']
@@ -26,7 +26,6 @@ module RPS
               else
                 @game_winner_id = @player2_id
               end
-              @game_status = 'complete'
             end
           end
         end

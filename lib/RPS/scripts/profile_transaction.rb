@@ -17,10 +17,18 @@ module RPS
       end
         
       game_hash
-
     end
+  end
 
-
+  class MatchLookup
+    def self.run(game_hash)
+      match_hash = Hash.new {|key,value| match_hash[key]||=[]}
+      game_hash['in_progress'].each do |game|
+        last_match = RPS.dbi.get_match_by_game_id(game.game_id)
+        match_hash[game.game_id]=last_match
+      end
+      match_hash
+    end
   end
 
 

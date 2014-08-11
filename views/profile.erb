@@ -10,7 +10,9 @@
     			<h3>Current Games</h3>
     		</center>
     		<% @game_hash['in_progress'].each do |game|%>
-    			<center><li><a class = 'button' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a> </li></center>
+    			<center><li><a class = 'button' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a>
+    			<%winner = RPS.dbi.get_winner_by_match_id(game,@match_hash[game.game_id])%>
+    			Last match Winner: <%=winner%> </li></center>
     		<% end %>
    		</ul>    
    	</div>
@@ -19,6 +21,11 @@
           <center>
           <h3>Completed Games</h3>
         </center>
+        <% @game_hash['complete'].each do |game|%>
+        	<center><li><a class = 'button' href='/game/<%=game.game_id%>'> Game: <%=game.game_id%></a> 
+        	<%winner = RPS.dbi.get_user_by_id(game.game_winner_id)%>
+        	Winner: <%=winner%> </li></center>
+        <% end %>
       	<li class="cta-button"><a class="button" href="/moo">Moo!</a></li>
     </ul>    
   </div>

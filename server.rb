@@ -61,6 +61,7 @@ end
 get '/profile' do
   @user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
   @game_hash = RPS::GameLookup.run(@user)
+  @match_hash = RPS::MatchLookup.run(@game_hash)
   erb :profile
 end
 
@@ -70,6 +71,7 @@ get '/startgame/:player1_id/:player2_id' do
 end
 
 get '/game/:game_id' do
+  count = 0
   game = RPS.dbi.get_game_by_id(params['game_id'])
   sess_user = RPS.dbi.get_user_by_username(session['k1ll3r_RPS'])
   p2_for_game = game.player2_id
@@ -80,6 +82,7 @@ get '/game/:game_id' do
   # erb :game
   if game.game_winner_id == sess_user.user_id
     redirect to '/game/result/winner'
+    game.game_status = 'complete'
   elsif !game.game_winner_id.nil?
     redirect to '/game/result/loser'
   else

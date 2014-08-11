@@ -176,6 +176,18 @@ module RPS
       end
     end
 
+    def get_winner_by_match_id(game,match)
+      if !match.nil?
+        if 'player1' == match.result
+          winner = RPS.dbi.get_user_by_id(game.player1_id).username
+        else
+          winner = RPS.dbi.get_user_by_id(game.player2_id).username
+        end
+      else
+        winner = "In-progress"
+      end
+    end
+
     def get_game_by_id(game_id)
       result = @db.exec_params(%q[
       SELECT * FROM games WHERE id = $1;
